@@ -2,7 +2,9 @@ package config;
 
 import com.codeborne.selenide.Configuration;
 import io.restassured.RestAssured;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.MutableCapabilities;
+
+import java.util.Map;
 
 public class ProjectConfig {
     private final WebConfig webConfig;
@@ -21,12 +23,16 @@ public class ProjectConfig {
         Configuration.browserVersion = webConfig.browserVersion();
         Configuration.pageLoadStrategy = webConfig.pageLoadStrategy();
         Configuration.browserSize = webConfig.browserSize();
+
         if (webConfig.isRemote()) {
             Configuration.remote = webConfig.remoteUrl();
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("enableVNC", true);
-            capabilities.setCapability("enableVideo", true);
-            Configuration.browserCapabilities = capabilities;
+            Configuration.browserCapabilities = new MutableCapabilities();
+            Configuration.browserCapabilities.setCapability("selenoid:options",
+                    Map.<String, Object>of(
+                            "enableVNC", true,
+                            "enableVideo", true
+                    )
+            );
         }
     }
 }

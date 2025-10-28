@@ -1,6 +1,7 @@
 package helpers;
 
 import com.codeborne.selenide.Selenide;
+import config.WebConfig;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -45,8 +46,7 @@ public class Attach {
     }
 
     public static URL getVideoUrl() {
-        String webDriverHost = System.getProperty("webDriverHost");
-        String videoUrl = "https://" + webDriverHost + "/video/" + sessionId() + ".mp4";
+        String videoUrl = "https://selenoid.autotests.cloud/video/" + sessionId() + ".mp4";
         try {
             return new URL(videoUrl);
         } catch (MalformedURLException e) {
