@@ -3,11 +3,12 @@ package data;
 import config.AuthConfig;
 import models.IsbnModel;
 import models.LoginBodyModel;
+import org.aeonbits.owner.ConfigFactory;
 
 import java.util.List;
 
 public class TestData {
-    protected static AuthConfig authData;
+    protected static AuthConfig authData = ConfigFactory.create(AuthConfig.class);
     protected static String userName = authData.userName();
     protected static String password = authData.password();
 
